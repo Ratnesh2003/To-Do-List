@@ -6,6 +6,9 @@ import { fileURLToPath } from "url";
 
 import sequelize from "./configs/dbConfig.js";
 
+import authRoutes from "./routes/auth.js";
+
+
 // CONFIGS
 const __fileName = fileURLToPath(import.meta.url);
 const __dirName = path.dirname(__fileName);
@@ -16,12 +19,22 @@ app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/assets", express.static(path.join(__dirName, 'public/assets')));
 
+// Routes
+app.use("/auth", authRoutes);
+
+
+// MYSQL Connection
 sequelize.authenticate()
 .then(() => {
     console.log("Connected to DB");
 })
 
+sequelize.sync({force: false})
+.then(() => {
+    console.log("Sync successful");
+})
 
+// Server starting configuration
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`)
