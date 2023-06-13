@@ -27,6 +27,7 @@ const RegisterPage = () => {
             
             axios.post('http://localhost:3001/auth/register', values)
                 .then(res => {
+                    console.log(res);
                     navigate('/login');
                 })
                 .catch(err => console.log(err.response.data));
