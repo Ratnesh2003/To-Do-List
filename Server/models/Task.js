@@ -1,10 +1,11 @@
 import { Sequelize, DataTypes } from "sequelize";
-import sequelize from "../configs/dbConfig";
+import sequelize from "../configs/dbConfig.js";
 
 const Task = sequelize.define('Task', {
     taskId: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        primaryKey: true
     }, 
     title: {
         type: DataTypes.STRING,
@@ -19,6 +20,11 @@ const Task = sequelize.define('Task', {
     userId: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    isCompleted: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
     }
 });
 

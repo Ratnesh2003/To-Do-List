@@ -7,12 +7,12 @@ import { fileURLToPath } from "url";
 import sequelize from "./configs/dbConfig.js";
 
 import authRoutes from "./routes/auth.js";
+import taskRoutes from "./routes/task.js"
 
 
 // CONFIGS
 const __fileName = fileURLToPath(import.meta.url);
 const __dirName = path.dirname(__fileName);
-
 const app = express();
 dotenv.config();
 app.use(bodyParser.json({ extended: true }));
@@ -21,6 +21,7 @@ app.use("/assets", express.static(path.join(__dirName, 'public/assets')));
 
 // Routes
 app.use("/auth", authRoutes);
+app.use("/", taskRoutes);
 
 
 // MYSQL Connection
