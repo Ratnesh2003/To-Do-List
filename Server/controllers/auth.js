@@ -7,12 +7,14 @@ import sequelize from "../configs/dbConfig.js";
 // Register 
 export const register = async (req, res) => {
     try {
+        
         const {
             firstName,
             lastName,
             email,
             password
         } = req.body;
+        console.log(firstName, lastName, email, password);
 
         const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
         if (!regex.test(password)) {

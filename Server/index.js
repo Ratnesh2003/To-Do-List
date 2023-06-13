@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from "url"; 
+import cors from "cors";
 
 import sequelize from "./configs/dbConfig.js";
 
@@ -15,6 +16,8 @@ const __fileName = fileURLToPath(import.meta.url);
 const __dirName = path.dirname(__fileName);
 const app = express();
 dotenv.config();
+app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/assets", express.static(path.join(__dirName, 'public/assets')));
