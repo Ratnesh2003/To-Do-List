@@ -21,7 +21,8 @@ const LoginPage = () => {
         event.preventDefault();
         axios.post('http://localhost:3001/auth/login', values)
         .then(res => {
-            console.log(res);
+            const token = res.data.token;
+            localStorage.setItem('jwtToken', token);
             navigate('/tasks');
         })
         .catch(err => {
