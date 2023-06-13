@@ -13,7 +13,7 @@ export const createTask = async (req, res) => {
         } = req.body;
 
         const taskId = uuidv4();
-        
+
         let newTask = {
             taskId: taskId,
             title: title,
@@ -23,7 +23,7 @@ export const createTask = async (req, res) => {
         }
 
         const savedTask = await Task.create(newTask);
-        res.status(201).json({savedTask});
+        res.status(201).json({ savedTask });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -48,11 +48,49 @@ export const getAllTasks = async (req, res) => {
 // Delete Task
 export const deleteTask = async (req, res) => {
     try {
+        const taskId = req.params['taskId'];
+        const task = await Task.findOne({
+            where: {
+                taskId: taskId
+            }
+        });
+        if (req.user.id !== task.userId) return res.status(403).json({ message: "Permission denied" });
+        await Task.destroy({
+            where: {
+                taskId: taskId
+            }
+        });
+        res.status(200).json({ message: "Task deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
 
+// Complete a task
+export const completeTask = async (req, res) => {
+    try {
+        const taskId = req.params['taskId'];
+        const task = await Task.findOne({
+            where: {
+                taskId: taskId
+            }
+        });
+
+        if (req.user.id !== task.userId) res.status(403).json({ message: "Permission denied" });
+        await Task.update(
+            {
+                isCompleted: true
+            },
+            {
+                where: {
+                    taskId: taskId
+                }
+            }
+        );
+
+        res.status(200).json({message: "Task marked as completed"});
 
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-
-
 }
