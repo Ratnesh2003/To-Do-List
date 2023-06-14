@@ -1,27 +1,46 @@
 import { useEffect, useState } from "react";
 import axiosAuthInstance from "../../utils/requestInterceptor.js";
-import axios from "axios";
+import TaskCard from "../../components/TaskCard.jsx";
+import { useDispatch, useSelector } from "react-redux";
+import { getTasks } from "../../redux/taskList.js";
 
 const TaskPage = () => {
 
-    const [tasks, setTasks] = useState([]);
+    // const [tasks, setTasks] = useState([]);
 
 
-    const getTasks = () => {
-        axiosAuthInstance.get(`${process.env.REACT_APP_URL}`)
-        .then(res => {
-            setTasks(res.data);
-            console.log(res.data);
-        }).catch(err => console.log(err));
-    }
+
+    const { tasks } = useSelector(state => 
+        state.taskList
+    );
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getTasks();
+        dispatch(getTasks());
     }, []);
-    
+
     return (
         <div>
-            Nothing Here
+            <h2>Tasks</h2>
+            <div>
+                {
+                    tasks.length > 0
+                        ? (<div>
+                            {
+                                tasks.map((task) => (
+                                    <TaskCard task={task}></TaskCard>
+                                ))
+                            }
+
+                        </div>)
+                        : (
+                            <div>
+                                No tasks
+                            </div>
+                        )
+                }
+            </div>
+
         </div>
     )
 

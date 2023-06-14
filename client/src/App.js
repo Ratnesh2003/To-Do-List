@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Routes, Route} from 'react-router-dom';
 import LoginPage from "./scenes/loginPage/index.jsx"
 import RegisterPage from "./scenes/registerPage/index.jsx";
-import TaskPage from './scenes/taskPage/index.jsx';
+import HomePage from './components/HomePage.jsx';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Routes>
           <Route path='/login' element={<LoginPage></LoginPage>}></Route>
           <Route path='/register' element={<RegisterPage></RegisterPage>}></Route>
-          <Route path='/tasks' element={<TaskPage></TaskPage>}></Route>
+          <Route path='/' element={<HomePage/>}></Route>
         </Routes>
       </BrowserRouter>
 
