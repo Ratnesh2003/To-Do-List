@@ -9,7 +9,6 @@ const initialState = {
 export const getTasks = createAsyncThunk(
     'tasks/getTasks', async () => {
         const response = await axiosAuthInstance.get(process.env.REACT_APP_URL);
-        console.log(response.data);
         return response.data;
     }
 )

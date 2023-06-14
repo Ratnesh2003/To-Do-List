@@ -6,7 +6,6 @@ import { getTasks } from "../../redux/taskList.js";
 
 const TaskPage = () => {
 
-    // const [tasks, setTasks] = useState([]);
 
 
 

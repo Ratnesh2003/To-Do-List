@@ -17,9 +17,6 @@ const AddNewTask = () => {
         setValues(prev => ({...prev, [event.target.name]: event.target.value}));
     }
 
-    let { tasks } = useSelector(state => 
-        state.taskList
-    );
     const dispatch = useDispatch();
 
     const handleSubmit = async (event) => {
@@ -27,7 +24,7 @@ const AddNewTask = () => {
         if (values.title === "")
             setError("Title cannot be empty");
         else {
-            const response = await axiosAuthInstance.post(`${process.env.REACT_APP_URL}create`, values);
+            await axiosAuthInstance.post(`${process.env.REACT_APP_URL}create`, values);
             dispatch(getTasks());
         }
     }
